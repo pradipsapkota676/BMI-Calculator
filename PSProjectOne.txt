@@ -1,0 +1,164 @@
+
+package PSProjectOne;
+
+import java.util.Scanner;
+
+/**
+ * This program evaluates citizen responses from the interview questions, determines
+ * the Biximent Metabolic Index (BMI), and recommends an appropriate treatment based 
+ * on the value of BMI for outbreak of Ginjuk on the Planet Qwork.
+ * 
+ * @author pradip Sapkota (3741235)
+ */
+public class PSProjectOne {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+              
+        double weight;    //weight of patient in kilograms 
+        double age;       //age in solar cycles
+        double genderFactor = 0;   //initialize the gender factor
+        double bmi;          //Biximent Metabolic Index value 
+        double biximentLevel;    //biximent level for a citizen
+        char gender;            //gender identification
+        char letter;            // deciding variable for continuous program
+        String treatment = "";        // to recommend the treatment 
+        String condition="";        //for condition of the patient
+        
+        // Welcome message of IAS and program purpose for the inhabitants
+        System.out.println("Welcome to the Interplanetary Aid Society (IAS) Ginjuk Treatment Advisor!");
+        System.out.println("We will help you to determine the right treatment for Ginjuk" 
+                           + " based on your the Biximent Metabolic Index.");
+        System.out.println("Please follow the instructions to get started.");
+        System.out.println("");
+        
+        Scanner keyboard = new Scanner (System.in);
+        
+        //for continuation of the program to calculate BMI and get the advices until user wants to exit
+        do
+        {
+            //prompt the user for their weight in kilograms
+        System.out.print("Enter your weight in kilograms: ");
+        weight = keyboard.nextDouble();
+        
+        //validate the user input for their weight
+        while (weight <=27.0)
+        {
+            System.out.println("Weight must be greater than 27 kilograms");
+            System.out.print("Enter your weight in kilograms: ");
+            weight = keyboard.nextDouble();
+        }
+        
+        //promt the user for their in solar cycles.
+        System.out.print("Enter your age in solar cycles: ");
+        age = keyboard.nextDouble();   //read entered age
+        
+        //validate the user input for their age 
+        while (age <17 || age>97)
+        {
+            System.out.println("Age must be between 17 and 97 solar years");
+            System.out.print("Enter your age in solar cycles: ");
+            age = keyboard.nextDouble();
+        }
+        
+        keyboard.nextLine();               // consume the nextline character
+        
+        //prompt the user for gender identification
+        System.out.print("Enter your gender identification (R/S/T) : ");
+        String input = keyboard.nextLine();         // Read the entire line of input as a string
+        String uppercaseInput = input.toUpperCase();       // Convert the input string to uppercase
+        gender = uppercaseInput.charAt(0);      // read and get the first character from the uppercase input
+
+        //validate the user input for gender identification
+        while(gender != 'R' && gender !='S' && gender !='T')
+        {
+            System.out.println("Invalid gender. Please enter R, S, or T ");
+            System.out.print("Enter your gender identification (R/S/T) : ");
+            input = keyboard.nextLine();
+            uppercaseInput = input.toUpperCase();
+            gender = uppercaseInput.charAt(0);
+        }
+        
+        //gender factor for each gender type
+        if (gender =='R'){
+            genderFactor = 8.42;
+        }else if (gender =='S'){
+            genderFactor =4.25;
+        }else if(gender =='T'){
+            genderFactor =6.37;
+        }
+
+        //prompt the user for their biximent level
+        System.out.print("Enter your Biximent level: ");
+        biximentLevel = keyboard.nextDouble();    //read biximent level
+        
+        //validate the user input for their biximent level
+        while(biximentLevel < 31)
+        {
+            System.out.println("Your Biximent Level must be at least 31");
+            System.out.print("Enter your Biximent level: ");
+            biximentLevel = keyboard.nextDouble();
+        }
+        
+        //calculate the Biximent Metabolic Index of a patient
+        bmi = (2.66 * age) + (biximentLevel *477)/(weight * genderFactor);  
+        
+        //check the condition of a patient and recommend treatment on basis of BMI value.
+        if (bmi<90){
+            condition = "Mild";
+            treatment ="no treatment";
+        } else if (bmi<125){
+            condition = "Serious";
+            treatment ="Medication Treatment";
+        } else if (bmi<210){
+            condition = "Acute";
+            treatment ="Ultraviolet treatment";
+        } else if (bmi<372){
+            condition = "Severe";
+            treatment ="Replacement therapy";
+        } else if (bmi >= 372){
+            condition = "Extreme";
+            treatment ="Hospitalization";
+        }
+       
+        System.out.println("");   //for empty line in output
+        System.out.println("");   //for empty line in output
+        
+        
+        //Display the description and report of Biximent Metabolic Index of the citizen 
+        System.out.println("For a citizen of gender type " + gender + ", who is " + age + " cycles old and");
+        System.out.println("weighs " + weight + " kilograms with a reported biximent level of " + biximentLevel + ",");                  
+        System.out.printf("the Biximent Metabolic Index is %.1f", bmi);      
+        System.out.println(", their condition is ");
+        System.out.println(condition + " and "+ treatment + " is recommended."); 
+        System.out.println("");              // empty space in output
+        System.out.println("Biximent Metabolic Index Report");
+        System.out.println("Gender: " + gender);
+        System.out.println("Age: " + age + " cycles");
+        System.out.println("Weight: " + weight + " kilograms");
+        System.out.println("Biximent Level: " + biximentLevel);
+        System.out.printf("BMI: %.1f\n", bmi);
+        System.out.println("Recommended treatment: " + condition + " case, " + treatment);
+        
+        //check if the BMI of an inhabitant is greater than 220 and display highly contagious 
+        if (bmi>220.0)   
+       {
+           System.out.println("Inhabitant is Highly Contagious");
+       }
+        
+            System.out.println("");  //for nextline space
+            keyboard.nextLine();     // consume the nextline character
+            
+            
+         //ask the user whether they want to continue or exit
+        System.out.print("Do you want to evaluate for another citizen (Y/N)?: ");
+        String answer = keyboard.nextLine();     //read the user input
+        letter = answer.charAt(0);       //get the first character of the input
+        }while (letter != 'N' && letter != 'n');
+        
+           
+    }
+    
+}
